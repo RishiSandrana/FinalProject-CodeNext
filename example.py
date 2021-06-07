@@ -5,7 +5,7 @@ import random
 sense = SenseHat()
 sense.clear()
 
-delay = 0.8
+delay = 1
 
 #declare color tuples
 r = (255,0,0)
@@ -82,9 +82,17 @@ w,w,w,w,w,w,w,w
 ]
 
 def move_left():
-  sense.set_pixels(0, 1, p)
+  sense.set_pixel(1, 7, p)
   time.sleep(delay)
+  sense.set_pixel(1, 6, p)
+  sense.set_pixel(0, 6, p)
+  time.sleep(delay)
+  sense.set_pixel(1, 5, p)
+  time.sleep(delay)
+  sense.set_pixel(0, 6, w)
+  sense.set_pixel(1, 7, w)
+  sense.set_pixel(1, 4, p)
+  sense.set_pixel(0, 5, p)
   
-
-
 sense.set_pixels(all_arrows)
+move_left()
