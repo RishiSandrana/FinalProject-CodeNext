@@ -5,7 +5,7 @@ import random
 sense = SenseHat()
 sense.clear()
 
-delay = 0.8
+speed = 0.8
 
 #declare color tuples
 r = (255,0,0)
@@ -70,15 +70,14 @@ w,w,w,w,w,w,w,w,
 w,w,w,w,w,w,w,w
 ]
 
-#list of arrows
-arrows = ["up", "right", "down", "left"]
+
 
 while True:
   sense.set_pixels(left_arrow)
-  time.sleep(0.75)
+  time.sleep(0.01)
   sense.set_pixels(right_arrow)
-  time.sleep(0.75)
+  time.sleep(0.01)
   sense.set_pixels(up_arrow)
-  time.sleep(0.75)
+  time.sleep(0.01)
   sense.set_pixels(down_arrow)
-  time.sleep(0.75)
+  time.sleep(0.01)
