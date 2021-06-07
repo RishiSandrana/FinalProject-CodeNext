@@ -1,99 +1,84 @@
 from sense_hat import SenseHat
 import time
+import random
 
-s = SenseHat()
-s.low_light = True
+sense = SenseHat()
+sense.clear()
 
-green = (0, 255, 0)
-yellow = (255, 255, 0)
-blue = (0, 0, 255)
-red = (255, 0, 0)
-white = (255,255,255)
-nothing = (0,0,0)
-pink = (255,105, 180)
+delay = 0.8
 
-def trinket_logo():
-    G = green
-    Y = yellow
-    B = blue
-    O = nothing
-    logo = [
-    O, O, O, O, O, O, O, O,
-    O, Y, Y, Y, B, G, O, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    O, Y, Y, Y, B, G, O, O,
-    O, O, O, O, O, O, O, O,
-    ]
-    return logo
+#declare color tuples
+r = (255,0,0)
+b = (0,255,255)
+p = (128,0,128)
+g = (0, 255, 0)
+w = (255,255,255)
+k = (0,0,0)
 
-def raspi_logo():
-    G = green
-    R = red
-    O = nothing
-    logo = [
-    O, G, G, O, O, G, G, O, 
-    O, O, G, G, G, G, O, O,
-    O, O, R, R, R, R, O, O, 
-    O, R, R, R, R, R, R, O,
-    R, R, R, R, R, R, R, R,
-    R, R, R, R, R, R, R, R,
-    O, R, R, R, R, R, R, O,
-    O, O, R, R, R, R, O, O,
-    ]
-    return logo
+no_arrow = [
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w
+]
 
-def plus():
-    W = white
-    O = nothing
-    logo = [
-    O, O, O, O, O, O, O, O, 
-    O, O, O, W, W, O, O, O,
-    O, O, O, W, W, O, O, O, 
-    O, W, W, W, W, W, W, O,
-    O, W, W, W, W, W, W, O,
-    O, O, O, W, W, O, O, O,
-    O, O, O, W, W, O, O, O,
-    O, O, O, O, O, O, O, O,
-    ]
-    return logo
+left_arrow =[   
+w,p,w,w,w,w,w,w,
+p,p,w,w,w,w,w,w,
+w,p,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w
+]
 
-def equals():
-    W = white
-    O = nothing
-    logo = [
-    O, O, O, O, O, O, O, O, 
-    O, W, W, W, W, W, W, O,
-    O, W, W, W, W, W, W, O,
-    O, O, O, O, O, O, O, O,
-    O, O, O, O, O, O, O, O,
-    O, W, W, W, W, W, W, O,
-    O, W, W, W, W, W, W, O,
-    O, O, O, O, O, O, O, O,
-    ]
-    return logo
+right_arrow =[   
+w,w,r,w,w,w,w,w,
+w,w,r,r,w,w,w,w,
+w,w,r,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w
+]
 
-def heart():
-    P = pink
-    O = nothing
-    logo = [
-    O, O, O, O, O, O, O, O,
-    O, P, P, O, P, P, O, O,
-    P, P, P, P, P, P, P, O,
-    P, P, P, P, P, P, P, O,
-    O, P, P, P, P, P, O, O,
-    O, O, P, P, P, O, O, O,
-    O, O, O, P, O, O, O, O,
-    O, O, O, O, O, O, O, O,
-    ]
-    return logo
+down_arrow =[   
+w,w,w,w,w,b,b,b,
+w,w,w,w,w,w,b,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w
+]
 
-images = [trinket_logo, trinket_logo, plus, raspi_logo, raspi_logo, equals, heart, heart]
-count = 0
+up_arrow =[   
+w,w,w,w,w,w,w,w,
+w,w,w,w,g,w,w,w,
+w,w,w,g,g,g,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w,
+w,w,w,w,w,w,w,w
+]
 
-while True: 
-    s.set_pixels(images[count % len(images)]())
-    time.sleep(.75)
-    count += 1
+#list of arrows
+arrows = ["up", "right", "down", "left"]
+
+while True:
+  sense.set_pixels(left_arrow)
+  time.sleep(0.75)
+  sense.set_pixels(right_arrow)
+  time.sleep(0.75)
+  sense.set_pixels(up_arrow)
+  time.sleep(0.75)
+  sense.set_pixels(down_arrow)
+  time.sleep(0.75)
